@@ -63,7 +63,6 @@ export const generateBlogTitle = async (req, res) => {
     }
 }
 
-
 export const generateImage = async (req, res) => {
     try {
         const { userId } = await req.auth();
@@ -73,11 +72,10 @@ export const generateImage = async (req, res) => {
         formData.append('prompt', prompt);
         
         const { data } = await axios.post("https://clipdrop-api.co/text-to-image/v1", formData, {
-            method:'POST',
             headers: {...formData.getHeaders() ,'x-api-key': process.env.CLIPDROP_API_KEY, },
             responseType: "arraybuffer"
         })
-        const base64Image = `data:image/png;base64,${Buffer.from(data, 'binary').toString('base64')}`
+        const base64Image = `data:image/png;base64,${Buffer.from(data, 'binary').toString('base64')}`;
         
         const { secure_url } = await cloudinary.uploader.upload(base64Image)
 
@@ -87,7 +85,7 @@ export const generateImage = async (req, res) => {
         res.json({ success: true, content: secure_url })
     } catch (error) {
         console.error(error?.response?.data || error.message)
-        res.status(500).json({ success: false, message: error?.response?.data || error.message })
+        res.status(500).json({ success: false, message: error.message})
     }
 }
 

@@ -20,7 +20,7 @@ const App = () => {
           <Route index element={<Dashboard />} />
           <Route path="write-article" element={<WriteArticle />} />
           <Route path="blog-titles" element={<BlogTitle />} />
-          <Route path="generate-image" element={<GenerateImage />} />
+          <Route path="generate-images" element={<GenerateImage />} />
           <Route path="remove-background" element={<RemoveBackground />} />
           <Route path="remove-object" element={<RemoveObject />} />
           <Route path="review-resume" element={<ReviewResume />} />

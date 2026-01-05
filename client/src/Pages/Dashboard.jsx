@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from 'react';
-import { Protect, useAuth } from '@clerk/clerk-react'
+import { useAuth } from '@clerk/clerk-react'
 import { FaGem } from 'react-icons/fa';
 import { FaSprayCanSparkles } from 'react-icons/fa6';
 import CreationItem from '../Components/CreationItem';
-import { dummyCreationData } from '../assets/asset';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { useCallback } from 'react';
 
-axios.defaults.baseURL = import.meta.env.VITE_BASE_URL || 'http://localhost:3000';
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
 const Dashboard = () => {
+
   const [creation, setCreation] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const { getToken } = useAuth()
-  const getDashboardData = async () => {
+  const { getToken } = useAuth();
+
+  const getDashboardData = useCallback(async () => {
     try {
       const { data } = await axios.get('/api/user/get-user-creations', {
         headers: { Authorization: `Bearer ${getToken()}` }
       })
+
       if (data.success) {
         setCreation(data.creation)
       } else {
@@ -28,10 +31,11 @@ const Dashboard = () => {
       toast.error(error.message)
     }
     setLoading(false)
-  }
+  }, [getToken])
   useEffect(() => {
     getDashboardData();
-  }, [])
+  }, [getDashboardData])
+
   return (
     <div className='h-full overflow-y-scroll p-6'>
       <div className='flex justify-start gap-4 flex-wrap'>
@@ -56,20 +60,22 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
+
       {
         loading ?
           (
             <div className='flex justify-center items-center h-3/4'>
-              <div className='animate-spin rounded-full h-11 w-11 border-3 border-purple-500 border-t-transparent'></div>
+              <div className='animate-spin rounded-full h-11 w-11 border-t-3
+                border-purple-500 border-t-transparent'></div>
             </div>
           )
           :
           (
             <div className='space-y-3'>
-              <p className='mt-6 mb-4 text-sm text-slate-600'>Recent Creations</p>
-              {creation.map((item) => (
-                <CreationItem key={item.id} item={item} />
-              ))}
+              <p className='mt-6 mb-4'>Recent Creations</p>
+              {
+                creations.map((item) => <CreationItem key={item.id} item={item} />)
+              }
             </div>
           )
       }

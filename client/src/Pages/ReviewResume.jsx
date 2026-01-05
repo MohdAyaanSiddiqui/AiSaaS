@@ -5,26 +5,25 @@ import toast from 'react-hot-toast';
 import Markdown from 'react-markdown';
 import { useAuth } from '@clerk/clerk-react';
 
-axios.defaults.baseURL = import.meta.env.VITE_BASE_URL || 'http://localhost:3000';
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 
 const ReviewResume = () => {
+
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState('');
 
   const { getToken } = useAuth();
+  
   const submithandler = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
-      if (object.split(' ').length > 1) {
-        return toast('Please Enter One Object Name')
-      }
+      
       const formData = new FormData();
       formData.append('resume', input)
 
-      const token = getToken ? await getToken() : null;
-      const { data } = await axios.post('/api/ai/generate-review-resume', formData, { headers: { Authorization: `Bearer ${token}` } })
+      const { data } = await axios.post('/api/ai/generate-review-resume', formData, { headers: { Authorization: `Bearer ${await getToken()}` } })
 
       if (data.success) {
         setContent(data.content)
@@ -39,14 +38,29 @@ const ReviewResume = () => {
 
   return (
     <div className='h-full overflow-y-scroll p-6 flex items-center flex-wrap gap-4 text-slate-700'>
+      {/*left col*/}
       <form onSubmit={submithandler} className='w-full max-w-lg p-4 bg-white rounded-lg border border-gray-200'>
         <div className='flex items-center gap-3'>
           <FaFile className='w-6 text-[#8E37EB]' />
           <h1 className='text-xl font-semibold'>Review Resume</h1>
         </div>
         <p className='mt-6 text-sm font-medium'>Upload Resume</p>
-        <input onChange={(e) => setInput(e.target.files[0])} type='file' accept='application/pdf' className='w-full p-2 px-3 mt-2 outline-none text-sm rounded-md border border-gray-300' required />
+        
+        <input 
+        onChange={(e) => setInput(e.target.files[0])} 
+        type="file" 
+        accept="application/pdf" 
+        className='w-full p-2 px-3 mt-2 outline-none text-sm rounded-md border border-gray-300' 
+        required /> 
+        
+        {input && (
+          <p className='mt-2 text-xs text-gray-500'>
+            Selected file: {input.name}
+          </p>
+        )}
+
         <p className='text-xs text-gray-500 font-light mt-1'>Supports PDF Resume Only</p>
+        
         <button className='w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#226BFF] to-[#65ADFF] text-white px-4 py-2 mt-6 text-sm rounded-lg cursor-pointer'>
           {
             loading ?
@@ -57,7 +71,9 @@ const ReviewResume = () => {
           Review Resume
         </button>
       </form>
+      {/*Right Col*/}
       <div className='w-full max-w-lg p-4 bg-white rounded-lg flex flex-col border border-gray-200 min-h-96 max-h-[600px]'>
+        
         <div className='flex items-center gap-3'>
           <FaFile className='w-5 h-5 text-[#4A7AFF]' />
           <h1 className='text-xl font-semibold'>Analysis Result</h1>
@@ -71,7 +87,8 @@ const ReviewResume = () => {
                   <p>Upload an resme and click "Review Resume to get started</p>
                 </div>
               </div>
-            ) : (
+            ) : 
+            (
               <div className='mt-3 h-full overflow-y-scroll text-sm text-slate-600'>
                 <div className='reset-tw'>
                 <Markdown>{content}</Markdown>
