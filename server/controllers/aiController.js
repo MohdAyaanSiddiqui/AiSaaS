@@ -5,7 +5,7 @@ import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
 import FormData from "form-data";
 import { createRequire } from "module";
-import { geminiModel } from "../configs/gemini.js";
+
 const require = createRequire(import.meta.url);
 const pdfParse = require("pdf-parse");
 
