@@ -76,20 +76,20 @@ nodemon server.js
 </p>
 
 <p align="center">
-  <img src="frontend/src/assets/Bottom.png" alt="Dashboard" width="500" />
+  <img src="frontend/src/assets/Bottom.png" alt="Bottom" width="500" />
 </p>
 
 
 <p align="center">
-  <img src="client/src/assets/Dashboard.png" alt="UserInt" width="500" />
+  <img src="client/src/assets/Dashboard.png" alt="Dashboard" width="500" />
 </p>
 
 <p align="center">
-  <img src="frontend/src/assets/Removeback.png" alt="Dashboard" width="500" />
+  <img src="frontend/src/assets/Removeback.png" alt="RemoveBack" width="500" />
 </p>
 
 
 <p align="center">
-  <img src="client/src/assets/RemoveObject.png" alt="UserInt" width="500" />
+  <img src="client/src/assets/RemoveObject.png" alt="RemoveObject" width="500" />
 </p>
 
