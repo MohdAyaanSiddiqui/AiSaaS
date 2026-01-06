@@ -5,7 +5,7 @@ import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
 import FormData from "form-data";
 import { createRequire } from "module";
-
+import { geminiModel } from "../configs/gemini.js";
 const require = createRequire(import.meta.url);
 const pdfParse = require("pdf-parse");
 
@@ -22,7 +22,7 @@ export const generateArticle = async (req, res) => {
 
 
         const response = await AI.chat.completions.create({
-            model: "gemini-2.5-flash",
+            model: "gemini-2.0-flash",
             messages: [{
                 role: "user",
                 content: prompt,
@@ -49,43 +49,30 @@ export const generateArticle = async (req, res) => {
     }
 }
 
-
 export const generateBlogTitle = async (req, res) => {
     try {
-        const { userId } = await req.auth();
+        const { userId } = req.auth();
         const { prompt } = req.body;
 
-        // Strengthen the instruction so we consistently get longer, multiple titles
-        const systemPrompt = `You are an expert blog copywriter.
-Generate exactly 4 unique, catchy, SEO-friendly blog post titles.
-- Each title must be between 6 and 12 words.
-- Titles should be specific and descriptive, not generic.
-- Return ONLY the list of titles in this exact format:
-1. First title here
-2. Second title here
-3. Third title here
-4. Fourth title here
-Do not include any explanations, intros, or outros.`;
-
-
         const response = await AI.chat.completions.create({
-            // Use same stable model family as generateArticle
             model: "gemini-2.5-flash",
-            messages: [
-                {
-                    role: "system",
-                    content: systemPrompt,
-                },
-                {
+            messages: [{
                     role: "user",
                     content: prompt,
                 },
             ],
-            temperature: 0.4,
-            max_tokens: 200,
+            temperature: 0.7,
+            max_tokens: 700,
         });
 
-        const content = response.choices[0].message.content
+        const content = response.choices[0].message.content?.trim();
+
+        if(!content){
+            return res.status(400).json({
+                success:false,
+                message: "Ai Returned Empty Blog title"
+            })
+        }
 
         await sql`INSERT INTO creations (user_id, prompt, content, type) VALUES (${userId}, ${prompt}, ${content}, 'blog-title')`;
 
@@ -97,6 +84,7 @@ Do not include any explanations, intros, or outros.`;
     }
 }
 
+
 export const generateImage = async (req, res) => {
     try {
         const { userId } = await req.auth();
@@ -107,8 +95,9 @@ export const generateImage = async (req, res) => {
         
         const { data } = await axios.post("https://clipdrop-api.co/text-to-image/v1", formData, {
             headers: {'x-api-key': process.env.CLIPDROP_API_KEY, },
-            responseType: "arraybuffer"
+            responseType: "arraybuffer",
         })
+
         const base64Image = `data:image/png;base64,${Buffer.from(data, 'binary').toString('base64')}`;
 
         const { secure_url } = await cloudinary.uploader.upload(base64Image)
@@ -118,7 +107,9 @@ export const generateImage = async (req, res) => {
         res.json({
              success: true, 
              content: secure_url, 
-             message:"Image Generated Successfully" })
+             message:"Image Generated Successfully" 
+        });
+
     } catch (error) {
         console.error(error.message)
         res.status(500).json({ success: false, message: error.message })
@@ -187,15 +178,15 @@ export const resumeReview = async (req, res) => {
 
         if (resume.size > 5 * 1024 * 1024) {
             return res.json({ success: false, message: "Resume File Size Exceeds allowed size (5MB)." })
-        
         }
+
         const dataBuffer = fs.readFileSync(resume.path);
         const pdfData = await pdfParse(dataBuffer);
 
         const prompt = `Review the following resume and provide constructive feedback on its strengths, weakness, and areas for improvement. Resume Content:\n\n${pdfData.text}`
         
         const response = await AI.chat.completions.create({
-            model: "gemini-2.5-flash",
+            model: "gemini-2.0-flash",
             messages: [{ 
                 role: "user",
                 content: prompt, 

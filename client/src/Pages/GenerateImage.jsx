@@ -25,9 +25,8 @@ const GenerateImage = () => {
 
       const prompt = `Generate An Image of ${input} in the style ${selectedImage}`
 
-      const token = await getToken();
       const { data } = await axios.post('/api/ai/generate-image', { prompt, 
-        publish }, { headers: { Authorization: `Bearer ${token}` } })
+        publish }, { headers: { Authorization: `Bearer ${await getToken()}` } })
 
       if (data.success) {
         setContent(data.content)
@@ -87,7 +86,10 @@ const GenerateImage = () => {
         </div>
 
         <button disabled={loading} className='w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#226BFF] to-[#65ADFF] text-white px-4 py-2 mt-6 text-sm rounded-lg cursor-pointer'>
-          {loading ? <span className='w-4 h-4 my-1 rounded-full border-2 border-t-transparent animate-spin'></span> : <FaImage className='w-5' />}
+          {
+          loading ? <span className='w-4 h-4 my-1 rounded-full border-2 
+          border-t-transparent animate-spin'></span> 
+          : <FaImage className='w-5' />}
           Generate Image
         </button>
       </form>
