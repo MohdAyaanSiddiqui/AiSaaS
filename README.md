@@ -69,3 +69,27 @@ nodemon server.js
 --CLOUDINARY_CLOUD_NAME=xxxx
 --CLOUDINARY_API_KEY=xxxx
 --CLOUDINARY_API_SECRET=xxxx
+
+
+<p align="center">
+  <img src="client/src/assets/UserInterface.png" alt="UserInt" width="500" />
+</p>
+
+<p align="center">
+  <img src="frontend/src/assets/Bottom.png" alt="Dashboard" width="500" />
+</p>
+
+
+<p align="center">
+  <img src="client/src/assets/Dashboard.png" alt="UserInt" width="500" />
+</p>
+
+<p align="center">
+  <img src="frontend/src/assets/Removeback.png" alt="Dashboard" width="500" />
+</p>
+
+
+<p align="center">
+  <img src="client/src/assets/RemoveObject.png" alt="UserInt" width="500" />
+</p>
+
