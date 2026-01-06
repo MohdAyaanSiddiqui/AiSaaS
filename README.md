@@ -76,7 +76,7 @@ nodemon server.js
 </p>
 
 <p align="center">
-  <img src="frontend/src/assets/Bottom.png" alt="Bottom" width="500" />
+  <img src="client/src/assets/Bottom.png" alt="Bottom" width="500" />
 </p>
 
 
@@ -85,7 +85,7 @@ nodemon server.js
 </p>
 
 <p align="center">
-  <img src="frontend/src/assets/Removeback.png" alt="RemoveBack" width="500" />
+  <img src="client/src/assets/Removeback.png" alt="RemoveBack" width="500" />
 </p>
 
 
