@@ -1,16 +1,10 @@
-import { PricingTable } from "@clerk/clerk-react"
-
-
 const Plan = () => {
   return (
-    <div className='max-w-2xl mx-auto z-20 my-30'>
-      <div className='text-center'>
-        <h2 className='text-slate-700 text-[42px] font-semibold'>Choose Your Plan</h2>
-        <p className='text-gray-500 max-w-lg mx-auto'>Start for free and scale up as you grow. Find the perfect plan for your content creation needs.</p>
-      </div>
-      <div className="mt-14 max-sm:mx-8">
-         <PricingTable />
-      </div>
+    <div className='max-w-2xl mx-auto z-20 my-30 text-center'>
+      <h2 className='text-slate-700 text-[36px] font-semibold'>All features are free</h2>
+      <p className='text-gray-500 max-w-lg mx-auto mt-4'>
+        You already have access to every tool in this app—no upgrades needed.
+      </p>
     </div>
   )
 }

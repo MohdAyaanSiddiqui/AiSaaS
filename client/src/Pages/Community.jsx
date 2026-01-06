@@ -1,5 +1,5 @@
 import { useAuth, useUser } from '@clerk/clerk-react';
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { FaHeart } from 'react-icons/fa';
 import axios from 'axios';
 import toast from 'react-hot-toast';

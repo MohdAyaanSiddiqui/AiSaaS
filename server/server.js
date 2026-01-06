@@ -14,13 +14,12 @@ app.use(cors());
 app.use(express.json());
 app.use(clerkMiddleware());
 
-app.get('/', (req, res) => {
-    res.send('Server Is Live!');
-});
+app.get('/', (req, res) => res.send('Server Is Live!'));
 
 
-app.use('/api/ai',requireAuth(),aiRouter)
-app.use('/api/user',requireAuth(),userRouter)
+app.use('/api/ai',requireAuth(),aiRouter);
+app.use('/api/user',requireAuth(),userRouter);
+
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

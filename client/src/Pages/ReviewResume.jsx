@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import Markdown from 'react-markdown';
 import { useAuth } from '@clerk/clerk-react';
 
-axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL || 'http://localhost:3000';
 
 const ReviewResume = () => {
 
@@ -20,10 +20,11 @@ const ReviewResume = () => {
     try {
       setLoading(true);
       
+      const token = await getToken();
       const formData = new FormData();
       formData.append('resume', input)
 
-      const { data } = await axios.post('/api/ai/generate-review-resume', formData, { headers: { Authorization: `Bearer ${await getToken()}` } })
+      const { data } = await axios.post('/api/ai/resume-review', formData, { headers: { Authorization: `Bearer ${token}` } })
 
       if (data.success) {
         setContent(data.content)

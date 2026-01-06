@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useAuth } from '@clerk/clerk-react';
 import toast from 'react-hot-toast';
 
-axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL || 'http://localhost:3000';
 
 
 const RemoveObject = () => {
@@ -19,15 +19,17 @@ const RemoveObject = () => {
     e.preventDefault();
     try {
       setLoading(true);
+      
       if (object.split(' ').length > 1) {
         return toast('Please Enter One Object Name')
       }
 
+      const token = await getToken();
       const formData = new FormData();
       formData.append('image', input)
       formData.append('object', object)
 
-      const { data } = await axios.post('/api/ai/generate-remove-object', formData, { headers: { Authorization: `Bearer ${await getToken()}` } })
+      const { data } = await axios.post('/api/ai/remove-image-object', formData, { headers: { Authorization: `Bearer ${token}` } })
 
       if (data.success) {
         setContent(data.content)
@@ -52,7 +54,7 @@ const RemoveObject = () => {
         <p className='mt-6 text-sm font-medium'>Describe Your Name To Remove</p>
 
         <input
-          onChange={(e) => setObject(e.target.files[0])}
+          onChange={(e) => setInput(e.target.files[0])}
           type="file"
           accept="image/*"
           className='w-full p-2 px-3 mt-2 outline-none text-sm rounded-md border border-gray-300' placeholder='e.g., watch or spoon, Only Single Object Name'

@@ -6,7 +6,8 @@ import { useAuth } from '@clerk/clerk-react';
 import toast from 'react-hot-toast';
 import Markdown from 'react-markdown';
 
-axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
+// Fallback to localhost if VITE_BASE_URL is missing
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL || 'http://localhost:3000';
 
 const WriteArticle = () => {
 

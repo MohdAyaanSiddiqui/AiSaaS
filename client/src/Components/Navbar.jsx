@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import LogoSaaS from "../assets/LogoSaaS.png"
+import LogoSaaS from "../assets/logo.svg"
 import { FaArrowRight } from "react-icons/fa";
 import { useClerk, UserButton, useUser } from '@clerk/clerk-react'
 const Navbar = () => {

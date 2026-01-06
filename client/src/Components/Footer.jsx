@@ -1,5 +1,5 @@
 import React from 'react'
-import LogoSaaS from "../assets/LogoSaaS.png"
+import LogoSaaS from "../assets/logo.svg"
 const Footer = () => {
     return (
         <footer className='bg-black py-12 px-4 sm:px-6 lg:px-8'>

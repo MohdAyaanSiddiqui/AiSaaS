@@ -3,7 +3,8 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import { FaImage } from 'react-icons/fa';
 import axios from 'axios';
-axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
+
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL || 'http://localhost:3000';
 
 const GenerateImage = () => {
 
@@ -24,11 +25,12 @@ const GenerateImage = () => {
 
       const prompt = `Generate An Image of ${input} in the style ${selectedImage}`
 
+      const token = await getToken();
       const { data } = await axios.post('/api/ai/generate-image', { prompt, 
-        publish }, { headers: { Authorization: `Bearer ${await getToken()}` } })
+        publish }, { headers: { Authorization: `Bearer ${token}` } })
 
       if (data.success) {
-        setContent(data.content.data)
+        setContent(data.content)
       } else {
         toast.error(data.message);
       }

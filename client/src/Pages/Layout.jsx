@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
-import LogoSaaS from "../assets/LogoSaaS.png"
+import LogoSaaS from "../assets/logo.svg"
 import { FaXmark } from "react-icons/fa6";
 import { IoIosMenu } from "react-icons/io";
 import Sidebar from '../Components/Sidebar';

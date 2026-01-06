@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useAuth } from '@clerk/clerk-react';
 import toast from 'react-hot-toast';
 
-axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL || 'http://localhost:3000';
 
 const RemoveBackground = () => {
 
@@ -18,10 +18,11 @@ const RemoveBackground = () => {
     e.preventDefault();
       try {
         setLoading(true);
+        const token = await getToken();
         const formData = new FormData();
         formData.append('image', input)
         
-        const { data } = await axios.post('/api/ai/remove-image-background',formData, { headers: { Authorization: `Bearer ${await getToken()}` } })
+        const { data } = await axios.post('/api/ai/remove-image-background',formData, { headers: { Authorization: `Bearer ${token}` } })
 
         if (data.success) {
           setContent(data.content)

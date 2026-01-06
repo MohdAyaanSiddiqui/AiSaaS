@@ -7,7 +7,8 @@ import axios from 'axios';
 import toast from 'react-hot-toast';
 import { useCallback } from 'react';
 
-axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
+// Fallback to localhost if VITE_BASE_URL is missing
+axios.defaults.baseURL = import.meta.env.VITE_BASE_URL || 'http://localhost:3000';
 
 const Dashboard = () => {
 
@@ -18,12 +19,13 @@ const Dashboard = () => {
 
   const getDashboardData = useCallback(async () => {
     try {
+      const token = await getToken();
       const { data } = await axios.get('/api/user/get-user-creations', {
-        headers: { Authorization: `Bearer ${getToken()}` }
+        headers: { Authorization: `Bearer ${token}` }
       })
 
       if (data.success) {
-        setCreation(data.creation)
+        setCreation(data.creations || [])
       } else {
         toast.error(data.message)
       }
@@ -74,7 +76,7 @@ const Dashboard = () => {
             <div className='space-y-3'>
               <p className='mt-6 mb-4'>Recent Creations</p>
               {
-                creations.map((item) => <CreationItem key={item.id} item={item} />)
+                creation.map((item) => <CreationItem key={item.id} item={item} />)
               }
             </div>
           )
