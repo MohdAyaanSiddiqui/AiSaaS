@@ -23,7 +23,7 @@ Quickgen.ai is a modern AI SaaS application built on the **PERN stack** (Postgre
 ```bash
 Ai-Powered-SaaS-App/
 │
-├── client/                 # Frontend (React + Vite)
+├── client/                 # Frontend (React + Vite, Redux)
 │   ├── components/         # Reusable UI components
 │   └── pages/              # Main application pages
 │
