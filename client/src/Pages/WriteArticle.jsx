@@ -12,10 +12,11 @@ axios.defaults.baseURL = import.meta.env.VITE_BASE_URL || 'http://localhost:3000
 const WriteArticle = () => {
 
   const articleLength = [
-    { length: 800, text: 'Short (500-800 words)' },
-    { length: 1200, text: 'Medium (800-1200 words)' },
-    { length: 1600, text: 'Long (1200-1600 words)' },
-  ]
+    { min: 500, max: 800 },
+    { min: 800, max: 1200 },
+    { min: 1200, max: 1600 }
+
+  ];
 
   const [selectedLength, setSelectedLength] = useState(articleLength[0]);
   const [input, setInput] = useState('');
@@ -28,10 +29,21 @@ const WriteArticle = () => {
     e.preventDefault();
     try {
       setLoading(true)
-      const prompt = `Write an article about ${input} in ${selectedLength.text}`
+      const prompt = `
+      Write a detailed, well-structured article on "${input}". 
+      STRICT REQUIREMENTS: 
+      - Word count: ${selectedLength.min} to ${selectedLength.max} words 
+      - Do NOT write less than ${selectedLength.min} words 
+      - Include:
+      - Introduction
+      - Multiple headings and subheadings
+      - Examples where applicable
+      - Conclusion
+      - Do NOT summarize
+      - Do NOT stop early
+      - Continue writing until the minimum word count is reached `;
 
-      const { data } = await axios.post('/api/ai/generate-article', { prompt, 
-        length: selectedLength.length }, {
+      const { data } = await axios.post('/api/ai/generate-article', {prompt}, {
         headers: { Authorization: `Bearer ${await getToken()}` }
       })
 
@@ -43,7 +55,7 @@ const WriteArticle = () => {
     } catch (error) {
       toast.error(error.message)
     }
-    setLoading(false);
+    setLoading(false)
   }
 
   return (
@@ -55,41 +67,42 @@ const WriteArticle = () => {
           <h1 className='text-xl font-semibold'>Article Configuration</h1>
         </div>
         <p className='mt-6 text-sm font-medium'>Article Topic</p>
-        
-        <input 
-        onChange={(e) => setInput(e.target.value)} 
-        value={input} 
-        type="text" 
-        className='w-full p-2 px-3 mt-2 outline-none text-sm rounded-md border border-gray-300' 
-        placeholder='Future Is Here...' 
-        required 
+
+        <input
+          onChange={(e) => setInput(e.target.value)}
+          value={input}
+          type="text"
+          className='w-full p-2 px-3 mt-2 outline-none text-sm rounded-md border border-gray-300'
+          placeholder='Future Is Here...'
+          required
         />
-        
+
         <p className='mt-4 text-sm font-medium'>Article Length</p>
-        
+
         <div className='mt-3 flex gap-3 flex-wrap sm:max-w-9/11'>
           {articleLength.map((item, index) => (
-            <span 
-            onClick={() => setSelectedLength(item)} 
+            <span
+            key={index}
+            onClick={() => setSelectedLength(item)}
             className={`text-xs px-4 py-1 border rounded-full cursor-pointer 
-              ${selectedLength.text === item.text ? 'bg-blue-50 text-blue-700' : 'text-gray-500 border-gray-300'                
-              }`} 
-              key={index}>{item.text}
-              </span>
+            ${selectedLength.min === item.min ? 'bg-blue-50 text-blue-700' : 'text-gray-500 border-gray-300'
+            }`}
+              >{item.min} - {item.max}
+            </span>
           ))}
         </div>
-        <br/>
+        <br />
         <button disabled={loading} className='w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#226BFF] to-[#65ADFF] text-white px-4 py-2 mt-6 text-sm rounded-lg cursor-pointer'>
           {
             loading ? <span className='w-4 h-4 my-1 rounded-full border-2 border-t-transparent animate-spin'></span>
-            : <FaEdit className='w-5' />
+              : <FaEdit className='w-5' />
           }
           Generate Article Here
         </button>
       </form>
       {/*Right Col*/}
       <div className='w-full md:w-1/2 p-6 bg-white rounded-lg flex flex-col border border-gray-200 min-h-[300px] max-h-[600px] overflow-hidden'>
-        
+
         <div className='flex items-center gap-3'>
           <FaEdit className='w-5 h-5 text-[#4A7AFF]' />
           <h1 className='text-xl font-semibold'>Generated Article</h1>
@@ -106,10 +119,10 @@ const WriteArticle = () => {
           <div className='mt-3 overflow-y-auto text-sm text-slate-600 max-h-[520px]'>
             <div className='reset-tw'>
               <Markdown>{content}</Markdown>
-              </div>
+            </div>
           </div>
         )}
-        
+
       </div>
     </div>
   )

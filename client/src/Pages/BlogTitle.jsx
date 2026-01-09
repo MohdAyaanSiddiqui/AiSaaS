@@ -15,35 +15,26 @@ const BlogTitles = () => {
   const [loading, setLoading] = useState(false)
   const [content, setContent] = useState('')
 
-  const { getToken } = useAuth()
+  const { getToken } = useAuth();
 
-  const onSubmitHandler = async (e) => {
-    e.preventDefault();
-    try {
-      setLoading(true)
-      //const prompt = `Generate a 15 lines blog title for the keyword ${input} in the category ${selectedCategory}`;
+  const onSubmitHandler = async (e)=>{
+      e.preventDefault();
+      try {
+          setLoading(true)
+          const prompt = `Generate a blog title for the keyword ${input} in the category ${selectedCategory}`
 
-      const prompt = `
-      Generate exactly 15 unique blog titles. Keyword: "${input}" Category: "${selectedCategory}"
-      Rules:
-      - Each title must be on a new line
-      - Do NOT add numbering
-      - Do NOT add explanation
-      - Keep titles catchy and SEO friendly
-      `;
-      
-      const { data } = await axios.post('/api/ai/generate-blog-title', { prompt },
-        { headers: { Authorization: `Bearer ${await getToken()}` } })
+          const { data } = await axios.post('/api/ai/generate-blog-title', {prompt},
+              {headers: {Authorization: `Bearer ${await getToken()}`}})
 
-      if (data.success) {
-        setContent(data.content)
-      } else {
-        toast.error(data.message)
+          if (data.success) {
+              setContent(data.content)
+          }else{
+              toast.error(data.message)
+          }
+      } catch (error) {
+          toast.error(error.message)
       }
-    } catch (error) {
-      toast.error(error.message)
-    }
-    setLoading(false)
+      setLoading(false)
   }
 
   return (

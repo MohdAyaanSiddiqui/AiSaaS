@@ -23,7 +23,9 @@ const GenerateImage = () => {
     try {
       setLoading(true)
 
-      const prompt = `Generate An Image of ${input} in the style ${selectedImage}`
+      const prompt = `A high quality ${selectedImage} style image of ${input},
+      ultra detailed, sharp focus, professional lighting 4k
+      `;
 
       const { data } = await axios.post('/api/ai/generate-image', { prompt, 
         publish }, { headers: { Authorization: `Bearer ${await getToken()}` } })
@@ -34,9 +36,10 @@ const GenerateImage = () => {
         toast.error(data.message);
       }
     } catch (error) {
-      toast.error(error.message)
-    }
+      toast.error(error.response?.data?.message || error.message)
+    }finally{
     setLoading(false);
+    }
   }
   return (
     <div className='h-full overflow-y-scroll p-6 flex items-center flex-wrap gap-4 text-slate-700'>

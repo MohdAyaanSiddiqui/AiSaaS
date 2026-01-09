@@ -22,7 +22,7 @@ export const generateArticle = async (req, res) => {
 
 
         const response = await AI.chat.completions.create({
-            model: "gemini-2.0-flash",
+            model: "gemini-2.5-flash",
             messages: [{
                 role: "user",
                 content: prompt,
@@ -98,9 +98,11 @@ export const generateImage = async (req, res) => {
             responseType: "arraybuffer",
         })
 
-        const base64Image = `data:image/png;base64,${Buffer.from(data, 'binary').toString('base64')}`;
+        const base64Image = `data:image/png;base64,${Buffer.from(data).toString('base64')}`;
 
-        const { secure_url } = await cloudinary.uploader.upload(base64Image)
+        const { secure_url } = await cloudinary.uploader.upload(base64Image,{
+        resource_type: "image"
+        })
 
         await sql`INSERT INTO creations (user_id, prompt, content, type, publish) VALUES (${userId}, ${prompt}, ${secure_url}, 'image', ${publish ?? false})`;
 
