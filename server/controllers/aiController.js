@@ -90,15 +90,22 @@ export const generateImage = async (req, res) => {
         const { userId } = await req.auth();
         const { prompt, publish } = req.body;
         
+        if(!prompt){
+            return res.status(400).json({success: false, message: "Prompt Required"})
+        }
+
         const formData = new FormData()
         formData.append('prompt', prompt);
         
-        const { data } = await axios.post("https://clipdrop-api.co/text-to-image/v1", formData, {
-            headers: {'x-api-key': process.env.CLIPDROP_API_KEY, },
+        const response = await axios.post("https://clipdrop-api.co/text-to-image/v1", formData, {
+            headers: {
+                "x-api-key": process.env.CLIPDROP_API_KEY, 
+            },
             responseType: "arraybuffer",
-        })
+        }
+    )
 
-        const base64Image = `data:image/png;base64,${Buffer.from(data).toString('base64')}`;
+        const base64Image = `data:image/png;base64,${Buffer.from(response.data).toString('base64')}`;
 
         const { secure_url } = await cloudinary.uploader.upload(base64Image,{
         resource_type: "image"
@@ -111,10 +118,10 @@ export const generateImage = async (req, res) => {
              content: secure_url, 
              message:"Image Generated Successfully" 
         });
-
+        
     } catch (error) {
-        console.error(error.message)
-        res.status(500).json({ success: false, message: error.message })
+        console.error("Image Error" , error.response?.data ||error.message)
+        res.status(500).json({ success: false, message: "Image Generation Failed"})
     }
 }
 
