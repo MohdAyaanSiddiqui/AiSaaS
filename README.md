@@ -94,3 +94,7 @@ nodemon server.js
   <img src="client/src/assets/RemoveObject.png" alt="RemoveObject" width="500" />
 </p>
 
+<p align="center">
+  <img src="client/src/assets/BlogTitle.png" alt="Blog Title" width="500" />
+</p>
+
