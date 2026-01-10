@@ -1,6 +1,6 @@
 import React from 'react';
 import { useClerk, useUser } from '@clerk/clerk-react'
-import { FaEraser, FaFile, FaHashtag, FaImage, FaSquare, FaUser } from 'react-icons/fa';
+import { FaEraser, FaHashtag, FaSquare, FaUser } from 'react-icons/fa';
 import { FaHouse, FaScissors } from 'react-icons/fa6';
 import { NavLink } from 'react-router-dom';
 import { IoMdLogOut } from 'react-icons/io';
@@ -9,10 +9,8 @@ const navItems = [
     { to: '/ai', label: 'Dashboard', Icon: FaHouse },
     { to: '/ai/write-article', label: 'Write Article', Icon: FaSquare },
     { to: '/ai/blog-titles', label: 'Blog Titles', Icon: FaHashtag },
-    { to: '/ai/generate-images', label: 'Generate Image', Icon: FaImage },
     { to: '/ai/remove-background', label: 'Remove Background', Icon: FaEraser },
     { to: '/ai/remove-object', label: 'Remove Object', Icon: FaScissors },
-    { to: '/ai/review-resume', label: 'Review Resume', Icon: FaFile },
     { to: '/ai/community', label: 'Community', Icon: FaUser },
 ]
 const Sidebar = ({ sidebar, setSidebar }) => {

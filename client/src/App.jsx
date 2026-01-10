@@ -4,10 +4,8 @@ import Layout from "./Pages/Layout";
 import Dashboard from "./Pages/Dashboard";
 import WriteArticle from "./Pages/WriteArticle";
 import BlogTitle from "./Pages/BlogTitle";
-import GenerateImage from "./Pages/GenerateImage";
 import RemoveBackground from "./Pages/RemoveBackground";
 import RemoveObject from "./Pages/RemoveObject";
-import ReviewResume from "./Pages/ReviewResume";
 import Community from "./Pages/Community";
 import {Toaster} from 'react-hot-toast'
 const App = () => {
@@ -20,10 +18,8 @@ const App = () => {
           <Route index element={<Dashboard />} />
           <Route path="write-article" element={<WriteArticle />} />
           <Route path="blog-titles" element={<BlogTitle />} />
-          <Route path="generate-images" element={<GenerateImage />} />
           <Route path="remove-background" element={<RemoveBackground />} />
           <Route path="remove-object" element={<RemoveObject />} />
-          <Route path="review-resume" element={<ReviewResume />} />
           <Route path="community" element={<Community />} />
         </Route>
       </Routes>
@@ -32,3 +28,4 @@ const App = () => {
 };
 
 export default App;
+
