@@ -69,7 +69,7 @@ export const generateBlogTitle = async (req, res) => {
 
         await sql`INSERT INTO creations (user_id, prompt, content, type) VALUES (${userId}, ${prompt}, ${content}, 'blog-title')`;
 
-        res.json({ success: true, message:"Blog Generated Successfully" ,content:content })
+        res.json({ success: true, message:"Blog Generated Successfully..." ,content:content })
     
     } catch (error) {
         console.log(error.message)
@@ -96,7 +96,7 @@ export const removeImageBackground = async (req, res) => {
         res.json({ 
             success: true, 
             content: secure_url, 
-            message:"Remove Background Successfully"    
+            message:"Remove Background SuccessFully..."    
         });
 
     } catch (error) {
@@ -123,7 +123,7 @@ export const removeImageObject = async (req, res) => {
         res.json({ 
             success: true, 
             content: imageUrl,
-            message: "Remove Object Successfully"
+            message: "Remove Object Successfully..."
          })
 
     } catch (error) {
