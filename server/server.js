@@ -14,6 +14,12 @@ app.use(express.json());
 
 app.get('/', (req, res) => res.send('Server Is Live!'));
 
+const corOptions = {
+    origin: 'http://localhost:5173',
+    credentials: true,
+}
+
+app.use(cors(corOptions));
 
 app.use('/api/ai', aiRouter);
 app.use('/api/user', userRouter);
