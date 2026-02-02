@@ -3,17 +3,16 @@ import './index.css'
 import App from './App.jsx'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
-import { ClerkProvider } from '@clerk/clerk-react'
-// Import your Publishable Key
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+import { Provider } from 'react-redux';
+import store, { persistor } from './redux/store.js'
+import { PersistGate } from 'redux-persist/es/integration/react'
 
-if (!PUBLISHABLE_KEY) {
-  throw new Error('Missing Publishable Key')
-}
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </ClerkProvider>
+  <BrowserRouter>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
+    </Provider>
+  </BrowserRouter>,
 )
