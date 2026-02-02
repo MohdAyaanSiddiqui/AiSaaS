@@ -3,21 +3,21 @@ import cors from 'cors'
 import 'dotenv/config';
 import aiRouter from './routes/aiRoutes.js';
 import connectCloudinary from './configs/cloudinary.js';
-import userRouter from './routes/userRoutes.js';
-
+import authRoutes from './routes/authRoutes.js';
 const app = express();
 
 await connectCloudinary();
 
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(clerkMiddleware());
 
 app.get('/', (req, res) => res.send('Server Is Live!'));
 
 
-app.use('/api/ai', requireAuth(), aiRouter);
-app.use('/api/user', requireAuth(), userRouter);
+app.use('/api/ai', aiRouter);
+app.use('/api/user', userRouter);
+app.use('/api/auth', authRoutes);
 
 const PORT = process.env.PORT || 3000;
 
