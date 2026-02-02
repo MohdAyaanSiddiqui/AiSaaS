@@ -1,13 +1,20 @@
-export const auth = async (req, res, next) => {
+import jwt from "jsonwebtoken";
+
+const isAuthenticated = async (req, res, next) => {
     try {
-        const { userId } = await req.auth();
-        if (!userId) {
-            return res.status(401).json({ success: false, message: 'Authentication required' });
+        const token = req.cookies.token;
+        if (!token) {
+            return res.status(401).json({ message: "User Not Authenticated..." });
         }
-        req.plan = 'free';
-        req.free_usage = 0;
+
+        const decode = await jwt.verify(token, process.env.SECRET_KEY);
+        if (!decode) {
+            return res.status(401).json({ message: "Invalid Token..." });
+        }
+        req.id = decode.userId;
         next();
-    } catch (error) {
-        res.json({ success: false, message: 'Authentication failed', error: error.message });
+    } catch (err) {
+        console.log(err);
     }
 }
+export default isAuthenticated
