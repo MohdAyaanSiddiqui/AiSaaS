@@ -20,7 +20,7 @@ const SignUp = () => {
         e.preventDefault();
         console.log(input);
         try {
-            const res = await axios.post("http://localhost:8080/api/auth/user/signup", input, {
+            const res = await axios.post("http://localhost:3000/api/auth/signup", input, {
                 headers: {
                     'Content-Type': "application/json"
                 },

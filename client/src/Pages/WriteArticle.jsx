@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { FaEdit } from 'react-icons/fa';
 import { FaHandSparkles } from 'react-icons/fa6'
 import axios from 'axios'
-import { useAuth } from '@clerk/clerk-react';
 import toast from 'react-hot-toast';
 import Markdown from 'react-markdown';
 
@@ -23,8 +22,6 @@ const WriteArticle = () => {
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState('');
 
-  const { getToken } = useAuth();
-
   const submithandler = async (e) => {
     e.preventDefault();
     try {
@@ -43,8 +40,8 @@ const WriteArticle = () => {
       - Do NOT stop early
       - Continue writing until the minimum word count is reached `;
 
-      const { data } = await axios.post('/api/ai/generate-article', {prompt}, {
-        headers: { Authorization: `Bearer ${await getToken()}` }
+      const { data } = await axios.post("http://localhost:3000/api/ai/generate-article", { prompt }, {
+        withCredentials: true
       })
 
       if (data.success) {
@@ -82,12 +79,12 @@ const WriteArticle = () => {
         <div className='mt-3 flex gap-3 flex-wrap sm:max-w-9/11'>
           {articleLength.map((item, index) => (
             <span
-            key={index}
-            onClick={() => setSelectedLength(item)}
-            className={`text-xs px-4 py-1 border rounded-full cursor-pointer 
+              key={index}
+              onClick={() => setSelectedLength(item)}
+              className={`text-xs px-4 py-1 border rounded-full cursor-pointer 
             ${selectedLength.min === item.min ? 'bg-blue-50 text-blue-700' : 'text-gray-500 border-gray-300'
-            }`}
-              >{item.min} - {item.max}
+                }`}
+            >{item.min} - {item.max}
             </span>
           ))}
         </div>

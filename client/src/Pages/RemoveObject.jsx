@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { FaScissors } from 'react-icons/fa6';
 import axios from 'axios';
-import { useAuth } from '@clerk/clerk-react';
 import toast from 'react-hot-toast';
 
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL || 'http://localhost:3000';
@@ -13,23 +12,22 @@ const RemoveObject = () => {
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState('');
 
-  const { getToken } = useAuth();
-
   const submithandler = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
-      
+
       if (object.split(' ').length > 1) {
         return toast('Please Enter One Object Name')
       }
 
-      const token = await getToken();
       const formData = new FormData();
       formData.append('image', input)
       formData.append('object', object)
 
-      const { data } = await axios.post('/api/ai/remove-image-object', formData, { headers: { Authorization: `Bearer ${token}` } })
+      const { data } = await axios.post("http://localhost:3000/api/ai/remove-image-object", formData, {
+        withCredentials: true
+      })
 
       if (data.success) {
         setContent(data.content)

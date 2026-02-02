@@ -1,5 +1,5 @@
 import OpenAI from "openai"
-import sql from "../configs/db.js";
+import { Creation } from "../models/creationModel.js";
 import { v2 as cloudinary } from "cloudinary";
 
 const AI = new OpenAI({
@@ -7,28 +7,29 @@ const AI = new OpenAI({
     baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/"
 });
 
-
 export const generateArticle = async (req, res) => {
     try {
-        const { userId } = req.auth();
+        const userId = req.id;
         const { prompt, length } = req.body;
 
-
         const response = await AI.chat.completions.create({
-            model: "gemini-2.5-flash",
+            model: "gemini-1.5-flash",
             messages: [{
                 role: "user",
                 content: prompt,
-            },
-            ],
+            }],
             temperature: 0.7,
             max_tokens: length,
         });
 
         const content = response.choices[0].message.content
 
-        await sql` INSERT INTO creations (user_id, prompt, content, type) VALUES (${userId}, ${prompt}, ${content}, 'article');`;
-
+        await Creation.create({
+            user_id: userId,
+            prompt,
+            content,
+            type: 'article'
+        });
 
         res.json({
             success: true,
@@ -44,33 +45,37 @@ export const generateArticle = async (req, res) => {
 
 export const generateBlogTitle = async (req, res) => {
     try {
-        const { userId } = req.auth();
+        const userId = req.id;
         const { prompt } = req.body;
 
         const response = await AI.chat.completions.create({
-            model: "gemini-2.5-flash",
+            model: "gemini-1.5-flash",
             messages: [{
-                    role: "user",
-                    content: prompt,
-                },
-            ],
+                role: "user",
+                content: prompt,
+            }],
             temperature: 0.7,
             max_tokens: 700,
         });
 
         const content = response.choices[0].message.content?.trim();
 
-        if(!content){
+        if (!content) {
             return res.status(400).json({
-                success:false,
+                success: false,
                 message: "Ai Returned Empty Blog title"
             })
         }
 
-        await sql`INSERT INTO creations (user_id, prompt, content, type) VALUES (${userId}, ${prompt}, ${content}, 'blog-title')`;
+        await Creation.create({
+            user_id: userId,
+            prompt,
+            content,
+            type: 'blog-title'
+        });
 
-        res.json({ success: true, message:"Blog Generated Successfully..." ,content:content })
-    
+        res.json({ success: true, message: "Blog Generated Successfully...", content: content })
+
     } catch (error) {
         console.log(error.message)
         res.json({ success: false, message: error.message })
@@ -79,9 +84,9 @@ export const generateBlogTitle = async (req, res) => {
 
 export const removeImageBackground = async (req, res) => {
     try {
-        const { userId } = await req.auth();
+        const userId = req.id;
         const image = req.file;
-         
+
         const { secure_url } = await cloudinary.uploader.upload(image.path, {
             transformation: [
                 {
@@ -91,12 +96,17 @@ export const removeImageBackground = async (req, res) => {
             ]
         })
 
-        await sql`INSERT INTO creations (user_id, prompt, content, type) VALUES (${userId},'Remove background from image', ${secure_url}, 'image')`;
+        await Creation.create({
+            user_id: userId,
+            prompt: 'Remove background from image',
+            content: secure_url,
+            type: 'image'
+        });
 
-        res.json({ 
-            success: true, 
-            content: secure_url, 
-            message:"Remove Background SuccessFully..."    
+        res.json({
+            success: true,
+            content: secure_url,
+            message: "Remove Background SuccessFully..."
         });
 
     } catch (error) {
@@ -107,7 +117,7 @@ export const removeImageBackground = async (req, res) => {
 
 export const removeImageObject = async (req, res) => {
     try {
-        const { userId } = await req.auth();
+        const userId = req.id;
         const { object } = req.body;
         const image = req.file;
 
@@ -118,17 +128,23 @@ export const removeImageObject = async (req, res) => {
             resource_type: 'image'
         })
 
-        await sql`INSERT INTO creations (user_id, prompt, content, type) VALUES (${userId},${`Remove ${object} from image `}, ${imageUrl}, 'image')`;
+        await Creation.create({
+            user_id: userId,
+            prompt: `Remove ${object} from image`,
+            content: imageUrl,
+            type: 'image'
+        });
 
-        res.json({ 
-            success: true, 
+        res.json({
+            success: true,
             content: imageUrl,
             message: "Remove Object Successfully..."
-         })
+        })
 
     } catch (error) {
         console.log(error.message)
         res.json({ success: false, message: error.message })
     }
 }
+
 

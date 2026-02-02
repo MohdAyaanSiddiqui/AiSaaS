@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { Hash } from 'lucide-react';
-import { useAuth } from '@clerk/clerk-react';
 import Markdown from 'react-markdown';
 import toast from 'react-hot-toast';
 axios.defaults.baseURL = import.meta.env.VITE_BASE_URL || 'http://localhost:3000';
@@ -15,26 +14,24 @@ const BlogTitles = () => {
   const [loading, setLoading] = useState(false)
   const [content, setContent] = useState('')
 
-  const { getToken } = useAuth();
+  const onSubmitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true)
+      const prompt = `Generate a blog title for the keyword ${input} in the category ${selectedCategory}`
 
-  const onSubmitHandler = async (e)=>{
-      e.preventDefault();
-      try {
-          setLoading(true)
-          const prompt = `Generate a blog title for the keyword ${input} in the category ${selectedCategory}`
+      const { data } = await axios.post("http://localhost:3000/api/ai/generate-blog-title", { prompt },
+        { withCredentials: true })
 
-          const { data } = await axios.post('/api/ai/generate-blog-title', {prompt},
-              {headers: {Authorization: `Bearer ${await getToken()}`}})
-
-          if (data.success) {
-              setContent(data.content)
-          }else{
-              toast.error(data.message)
-          }
-      } catch (error) {
-          toast.error(error.message)
+      if (data.success) {
+        setContent(data.content)
+      } else {
+        toast.error(data.message)
       }
-      setLoading(false)
+    } catch (error) {
+      toast.error(error.message)
+    }
+    setLoading(false)
   }
 
   return (

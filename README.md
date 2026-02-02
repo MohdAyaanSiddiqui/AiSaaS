@@ -37,13 +37,11 @@ Ai-Powered-SaaS-App/
 ├── server/                 # Backend (Node + Express)
 │   ├── routes/             # All API routes
 │   ├── controllers/        # Users, AI features
+    ├── models/             # Schemas
 │   └── config/             # Cloudinary, PDF, Multer
 │
 ├── .env                    # Environment variables
 |__ README.md               # Project documentation
-
-```
----
 
 ## How To Run This File
 
@@ -59,19 +57,13 @@ nodemon server.js
 
 ##Envoirnmental Variable SetUp
 ## Client
---VITE_CLERK_PUBLISHABLE_KEY=xxxx
 --VITE_BASE_URL=http://localhost:3000
 
 ## Server
 
---DATABASE_URL=xxxx
---CLERK_PUBLISHABLE_KEY=xxxx
-
---CLERK_SECRET_KEY=xxxx
+--MONGO_URI=xxxx
 
 --GEMINI_API_KEY=xxxx
-
---CLIPDROP_API_KEY=xxxx
 
 --CLOUDINARY_CLOUD_NAME=xxxx
 --CLOUDINARY_API_KEY=xxxx

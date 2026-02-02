@@ -8,11 +8,11 @@ import Footer from '../Components/Footer.jsx'
 const Home = () => {
   return (
     <>
-    <Navbar />
-    <Hero/>
-    <AiTool/>
-    <Testimonial/>  
-    <Footer/>
+      <Navbar />
+      <Hero />
+      <AiTool />
+      <Testimonial />
+      <Footer />
     </>
   )
 }

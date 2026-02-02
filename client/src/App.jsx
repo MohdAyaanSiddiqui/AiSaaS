@@ -7,13 +7,18 @@ import BlogTitle from "./Pages/BlogTitle";
 import RemoveBackground from "./Pages/RemoveBackground";
 import RemoveObject from "./Pages/RemoveObject";
 import Community from "./Pages/Community";
-import {Toaster} from 'react-hot-toast'
+import Login from "./Pages/Login";
+import SignUp from "./Pages/SignUp";
+import { Toaster } from 'react-hot-toast'
+
 const App = () => {
   return (
     <div>
-      <Toaster/>
+      <Toaster />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
         <Route path="/ai" element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path="write-article" element={<WriteArticle />} />
