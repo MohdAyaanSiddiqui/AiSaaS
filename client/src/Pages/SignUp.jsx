@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../redux/appSlice.js"
 import toast from 'react-hot-toast';
+import { useEffect } from 'react';
+
 const SignUp = () => {
+    const { user } = useSelector(state => state.app);
     const [input, setInput] = useState({
         name: "",
         email: "",
@@ -12,6 +15,12 @@ const SignUp = () => {
     })
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user) {
+            navigate("/ai");
+        }
+    }, [user, navigate])
 
     const changeHandler = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value })

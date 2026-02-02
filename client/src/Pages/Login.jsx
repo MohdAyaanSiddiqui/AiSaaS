@@ -1,24 +1,31 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import toast from 'react-hot-toast'
-import { setUser } from '../redux/appSlice'
+import { setUser } from '../redux/appSlice';
 
 const Login = () => {
+    const { user } = useSelector(state => state.app);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (user) {
+            navigate("/ai");
+        }
+    }, [user, navigate])
+
     const [input, setInput] = useState({
         email: "",
         password: ""
     })
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const changeHandler = (e) => {
         setInput({ ...input, [e.target.name]: e.target.value })
     }
     const submithandler = async (e) => {
         e.preventDefault();
-        console.log(input);
         try {
             const res = await axios.post("http://localhost:3000/api/auth/login", input, {
                 headers: {
@@ -28,7 +35,7 @@ const Login = () => {
             });
             if (res.data.success) {
                 dispatch(setUser(res.data.user));
-                navigate("/dashboard");
+                navigate("/ai");
                 toast.success(res.data.message);
             }
 
