@@ -58,7 +58,7 @@ const SignUp = () => {
                         <img className="size-7 rounded-full border border-green-900 -translate-x-4" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=50&h=50&auto=format&fit=crop" alt="userImage3" />
                     </div>
 
-                    <p className="-translate-x-2 text-xs text-slate-200">Join our DocuBrain Community</p>
+                    <p className="-translate-x-2 text-xs text-slate-200">Join our NeuroGlow AI  Community</p>
                 </div>
                 <h1 className='font-medium text-3xl md:text-5xl/15 bg-linear-to-r from-white to-green-300 bg-clip-text text-transparent max-w-[470px] mt-4'>Ready to experience our DocuBrain?</h1>
                 <p className='text-sm/6 text-white max-w-[345px] mt-4 mx-auto md:mx-0'>SignUp & Turn your PDFs into clear summaries and answer with AI-powered DocuBrain</p>
