@@ -1,6 +1,7 @@
 # AI-Powered SAAS App
 
-NeuroGlow.ai is a modern AI SaaS application built on the **PERN stack** (PostgreSQL, Express.js, React.js, Node.js), offering a suite of smart tools for content generation, image manipulation - all within a beautiful, responsive dashboard.
+NeuroGlow.ai is a modern AI SaaS application built on the **MERN stack** (MongoDB, Express.js, React.js, Node.js), offering a suite of smart tools for content generation and image manipulation—all within a beautiful, responsive dashboard.
+
 ---
 
 ## Feature Availability Notice
@@ -10,7 +11,6 @@ NeuroGlow.ai is a modern AI SaaS application built on the **PERN stack** (Postgr
 --The frontend and backend architecture for these features is already implemented.
 --During development and testing, the external APIs showed inconsistent behavior (403 / 500 errors) on the free tier.
 --To ensure application stability and a smooth user experience, these features have been temporarily removed from the UI.
-
 
 ## Features
 
@@ -38,72 +38,79 @@ Ai-Powered-SaaS-App/
 ├── server/                 # Backend (Node + Express)
 │   ├── routes/             # All API routes
 │   ├── controllers/        # Users, AI features
-    ├── models/             # Schemas
+│   ├── models/             # Schemas
 │   └── config/             # Cloudinary, PDF, Multer
 │
 ├── .env                    # Environment variables
-|__ README.md               # Project documentation
+└── README.md               # Project documentation
+```
 
 ## How To Run This File
 
 **In Client**
+```bash
 cd client
 npm install 
 npm run dev
+```
 
 **In Server**
+```bash
 cd server
 npm install
 nodemon server.js
+```
 
-##Envoirnmental Variable SetUp
-## Client
---VITE_BASE_URL=http://localhost:3000
+## Environment Variable Setup
 
-## Server
+### Client
+`VITE_BASE_URL=http://localhost:3000`
 
---MONGO_URI=xxxx
+### Server
+```bash
+MONGO_URI=xxxx
+GEMINI_API_KEY=xxxx
+CLOUDINARY_CLOUD_NAME=xxxx
+CLOUDINARY_API_KEY=xxxx
+CLOUDINARY_API_SECRET=xxxx
+```
 
---GEMINI_API_KEY=xxxx
+## Screenshots
 
---CLOUDINARY_CLOUD_NAME=xxxx
---CLOUDINARY_API_KEY=xxxx
---CLOUDINARY_API_SECRET=xxxx
+<p align="center">
+  <img src="client/src/assets/UI.png" alt="User Interface" width="600" />
+</p>
+
+<p align="center">
+  <img src="client/src/assets/Dashboard.png" alt="Dashboard" width="600" />
+</p>
+
+<p align="center">
+  <img src="client/src/assets/Login.png" alt="Login Page" width="600" />
+</p>
+
+<p align="center">
+  <img src="client/src/assets/SignUp.png" alt="Sign Up Page" width="600" />
+</p>
+
+<p align="center">
+  <img src="client/src/assets/Article.png" alt="Article Generator" width="600" />
+</p>
+
+<p align="center">
+  <img src="client/src/assets/BlogTitle.png" alt="Blog Title Generator" width="600" />
+</p>
+
+<p align="center">
+  <img src="client/src/assets/Removeback.png" alt="Remove Background" width="600" />
+</p>
+
+<p align="center">
+  <img src="client/src/assets/RemoveObject.png" alt="Remove Object" width="600" />
+</p>
+
+<p align="center">
+  <img src="client/src/assets/Bottom.png" alt="Footer Section" width="600" />
+</p>
 
 ## Good Luck
-
-  <img src="client/src/assets/UI.png" alt="UserInt" width="500" align="center"/>
-
-<p align="center">
-  <img src="client/src/assets/Bottom.png" alt="Bottom" width="500" />
-</p>
-
-
-<p align="center">
-  <img src="client/src/assets/Dashboard.png" alt="Dashboard" width="500" />
-</p>
-
-<p align="center">
-  <img src="client/src/assets/Removeback.png" alt="RemoveBack" width="500" />
-</p>
-
-
-<p align="center">
-  <img src="client/src/assets/RemoveObject.png" alt="RemoveObject" width="500" />
-</p>
-
-<p align="center">
-  <img src="client/src/assets/BlogTitle.png" alt="Blog Title" width="500" />
-</p>
-
-<p align="center">
-  <img src="client/src/assets/Article.png" alt="Article Title" width="500" />
-</p>
-
-<p align="center">
-  <img src="client/src/assets/Login.png" alt="Blog Title" width="500" />
-</p>
-
-<p align="center">
-  <img src="client/src/assets/SignUp.png" alt="Article Title" width="500" />
-</p>
