@@ -16,10 +16,8 @@ NeuroGlow.ai is a modern AI SaaS application built on the **MERN stack** (MongoD
 
 - **Generate Article** – AI-powered article writing based on custom prompts.
 - **Generate Blog Title** – Smart blog title generation to match your content.
-- **Generate Image** – Create AI-generated images with prompts.
 - **Remove Background** – Clean background removal with PNG output.
 - **Remove Object** – Seamlessly erase unwanted elements from images.
-- **Review Resume** – Intelligent resume analysis and feedback system.
 - **Dashboard** – View and manage your content generation history.
 - **Community Feed** – Share your generated images with others and toggle likes.
 

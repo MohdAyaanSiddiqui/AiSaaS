@@ -14,7 +14,10 @@ export const isAuthenticated = async (req, res, next) => {
         req.id = decode.userId;
         next();
     } catch (err) {
-        console.log(err);
+        console.log("Auth Error:", err.message);
+        if (err.name === 'JsonWebTokenError') {
+            res.clearCookie('token');
+        }
         return res.status(401).json({ message: "Authentication failed", success: false });
     }
 }
