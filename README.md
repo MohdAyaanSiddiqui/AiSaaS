@@ -1,6 +1,6 @@
 # AI-Powered SAAS App
 
-Quickgen.ai is a modern AI SaaS application built on the **PERN stack** (PostgreSQL, Express.js, React.js, Node.js), offering a suite of smart tools for content generation, image manipulation - all within a beautiful, responsive dashboard.
+NeuroGlow.ai is a modern AI SaaS application built on the **PERN stack** (PostgreSQL, Express.js, React.js, Node.js), offering a suite of smart tools for content generation, image manipulation - all within a beautiful, responsive dashboard.
 ---
 
 ## Feature Availability Notice
@@ -10,6 +10,7 @@ Quickgen.ai is a modern AI SaaS application built on the **PERN stack** (Postgre
 --The frontend and backend architecture for these features is already implemented.
 --During development and testing, the external APIs showed inconsistent behavior (403 / 500 errors) on the free tier.
 --To ensure application stability and a smooth user experience, these features have been temporarily removed from the UI.
+
 
 ## Features
 
