@@ -101,3 +101,10 @@ nodemon server.js
   <img src="client/src/assets/Article.png" alt="Article Title" width="500" />
 </p>
 
+<p align="center">
+  <img src="client/src/assets/Login.png" alt="Blog Title" width="500" />
+</p>
+
+<p align="center">
+  <img src="client/src/assets/SignUp.png" alt="Article Title" width="500" />
+</p>
