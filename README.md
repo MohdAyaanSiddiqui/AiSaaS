@@ -72,9 +72,7 @@ nodemon server.js
 
 ## Good Luck
 
-<p align="center">
-  <img src="client/src/assets/UI.png" alt="UserInt" width="500" />
-</p>
+  <img src="client/src/assets/UI.png" alt="UserInt" width="500" align="center"/>
 
 <p align="center">
   <img src="client/src/assets/Bottom.png" alt="Bottom" width="500" />
