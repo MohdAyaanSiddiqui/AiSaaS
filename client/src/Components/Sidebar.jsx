@@ -65,7 +65,6 @@ const Sidebar = ({ sidebar, setSidebar }) => {
                     </div>
                     <div>
                         <h1 className='text-sm font-medium'>{user.name}</h1>
-                        <p className='text-xs text-gray-500'>Pro Plan</p>
                     </div>
                 </div>
                 <IoMdLogOut onClick={logoutHandler} className='w-4.5 text-gray-400 hover:text-gray-700 transition cursor-pointer' />

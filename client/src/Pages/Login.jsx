@@ -57,8 +57,8 @@ const Login = () => {
                     </div>
 
                 </div>
-                <h1 className='font-medium text-3xl md:text-5xl/15 bg-linear-to-r from-white to-green-300 bg-clip-text text-transparent max-w-[470px] mt-4'>Ready to experience our DocuBrain?</h1>
-                <p className='text-sm/6 text-white max-w-[345px] mt-4 mx-auto md:mx-0'>Login & Turn your PDFs into clear summaries and answer with AI-powered DocuBrain</p>
+                <h1 className='font-medium text-3xl md:text-5xl/15 bg-linear-to-r from-white to-green-300 bg-clip-text text-transparent max-w-[470px] mt-4'>Ready to experience our Neuro Glow AI?</h1>
+                <p className='text-sm/6 text-white max-w-[345px] mt-4 mx-auto md:mx-0'>Login & Turn your PDFs into clear summaries and answer with AI-powered Neuro Glow</p>
                 <div className='mt-6 text-center relative z-20'>
                     <button type='button' onClick={() => navigate("/signup")} className='text-sm text-indigo-400 hover:text-indigo-300 underline'>Don't have an account? SignUp</button>
                 </div>

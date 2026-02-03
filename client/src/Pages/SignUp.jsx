@@ -60,8 +60,8 @@ const SignUp = () => {
 
                     <p className="-translate-x-2 text-xs text-slate-200">Join our NeuroGlow AI  Community</p>
                 </div>
-                <h1 className='font-medium text-3xl md:text-5xl/15 bg-linear-to-r from-white to-green-300 bg-clip-text text-transparent max-w-[470px] mt-4'>Ready to experience our DocuBrain?</h1>
-                <p className='text-sm/6 text-white max-w-[345px] mt-4 mx-auto md:mx-0'>SignUp & Turn your PDFs into clear summaries and answer with AI-powered DocuBrain</p>
+                <h1 className='font-medium text-3xl md:text-5xl/15 bg-linear-to-r from-white to-green-300 bg-clip-text text-transparent max-w-[470px] mt-4'>Ready to experience our Neuro Glow AI?</h1>
+                <p className='text-sm/6 text-white max-w-[345px] mt-4 mx-auto md:mx-0'>SignUp & Turn your PDFs into clear summaries and answer with AI-powered Neuro Glow</p>
                 <div className='mt-6 text-center relative z-20'>
                     <button type='button' onClick={() => navigate("/login")} className='text-sm text-indigo-400 hover:text-indigo-300 underline'>Already have an account? Login</button>
                 </div>

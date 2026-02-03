@@ -10,14 +10,6 @@ axios.defaults.baseURL = import.meta.env.VITE_BASE_URL || 'http://localhost:3000
 
 const WriteArticle = () => {
 
-  const articleLength = [
-    { min: 500, max: 800 },
-    { min: 800, max: 1200 },
-    { min: 1200, max: 1600 }
-
-  ];
-
-  const [selectedLength, setSelectedLength] = useState(articleLength[0]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState('');
@@ -28,17 +20,13 @@ const WriteArticle = () => {
       setLoading(true)
       const prompt = `
       Write a detailed, well-structured article on "${input}". 
-      STRICT REQUIREMENTS: 
-      - Word count: ${selectedLength.min} to ${selectedLength.max} words 
-      - Do NOT write less than ${selectedLength.min} words 
-      - Include:
+      Include:
       - Introduction
       - Multiple headings and subheadings
       - Examples where applicable
       - Conclusion
-      - Do NOT summarize
-      - Do NOT stop early
-      - Continue writing until the minimum word count is reached `;
+      - Flowing transitions between sections
+      - Comprehensive coverage of the topic`;
 
       const { data } = await axios.post("http://localhost:3000/api/ai/generate-article", { prompt }, {
         withCredentials: true
@@ -73,21 +61,6 @@ const WriteArticle = () => {
           placeholder='Future Is Here...'
           required
         />
-
-        <p className='mt-4 text-sm font-medium'>Article Length</p>
-
-        <div className='mt-3 flex gap-3 flex-wrap sm:max-w-9/11'>
-          {articleLength.map((item, index) => (
-            <span
-              key={index}
-              onClick={() => setSelectedLength(item)}
-              className={`text-xs px-4 py-1 border rounded-full cursor-pointer 
-            ${selectedLength.min === item.min ? 'bg-blue-50 text-blue-700' : 'text-gray-500 border-gray-300'
-                }`}
-            >{item.min} - {item.max}
-            </span>
-          ))}
-        </div>
         <br />
         <button disabled={loading} className='w-full flex justify-center items-center gap-2 bg-gradient-to-r from-[#226BFF] to-[#65ADFF] text-white px-4 py-2 mt-6 text-sm rounded-lg cursor-pointer'>
           {
