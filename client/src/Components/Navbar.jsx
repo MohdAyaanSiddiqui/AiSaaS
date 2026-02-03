@@ -33,7 +33,7 @@ const Navbar = () => {
       {
         user ? (
           <div className='flex items-center gap-4'>
-            <span className='text-white text-sm hidden sm:block'>Hi, {user.name}</span>
+            <span className='text-black text-sm hidden sm:block'>Hi, {user.name}</span>
             <button onClick={logoutHandler} className='bg-red-500/10 hover:bg-red-500/20 text-red-500 text-sm px-6 py-2 rounded-full cursor-pointer transition'>Logout</button>
           </div>
         )
