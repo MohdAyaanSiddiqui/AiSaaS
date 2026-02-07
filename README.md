@@ -15,8 +15,6 @@ NeuroGlow.ai is a modern AI SaaS application built on the **MERN stack** (MongoD
 
 - **Download Image** - User Can Donwload The Images After Generation
 - **UI Enhancements** - User Interface Will Be Enhanced 
----
----
 
 ## Project Structure
 
