@@ -1,6 +1,6 @@
 # AI-Powered SAAS App
 
-NeuroGlow.ai is a modern AI SaaS application built on the **MERN stack** (MongoDB, Express.js, React.js, Node.js), offering a suite of smart tools for content generation and image manipulation—all within a beautiful, responsive dashboard.
+NeuroGlow.ai is a modern AI SaaS application built on the **MERN stack** (MongoDB, Express.js, React.js, Node.js), offering a suite of smart tools for content generation and image manipulation—all within a beautiful, responsive dashboard...
 
 ## Features
 
