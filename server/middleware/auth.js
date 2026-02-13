@@ -18,7 +18,7 @@ export const isAuthenticated = async (req, res, next) => {
         if (err.name === 'JsonWebTokenError') {
             res.clearCookie('token');
         }
-        return res.status(401).json({ message: "Authentication failed", success: false });
+        return res.status(401).json({ message: "Authentication failed...", success: false });
     }
 }
 export default isAuthenticated;
