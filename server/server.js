@@ -21,7 +21,9 @@ const connectApp = async () => {
 connectApp();
 
 const corOptions = {
-    origin: 'https://neuroglowai.onrender.com',
+    origin: [
+     "http://localhost:5173",   
+    ,"https://neuroglowai.onrender.com"],
     credentials: true,
 }
 
